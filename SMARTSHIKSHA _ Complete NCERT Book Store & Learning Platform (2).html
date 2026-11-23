@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMARTSHIKSHA | Smart Way to Learn</title>
+<style>
+:root{
+  --navy:#092b68;
+  --blue:#124a9c;
+  --gold:#f2a900;
+  --green:#15803d;
+  --ink:#101827;
+  --muted:#64748b;
+  --paper:#f5f7fb;
+  --white:#ffffff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--paper);color:var(--ink)}
+
+/* Header & Navigation */
+header{background:#fff;position:sticky;top:0;z-index:30;box-shadow:0 2px 14px #10264b18}
+.top{max-width:1240px;margin:auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.logo{width:58px;height:58px;object-fit:contain;border-radius:10px}
+.logo-right{margin-left:4px;flex-shrink:0}
+.brand{font-weight:900;font-size:clamp(20px,4vw,29px);color:var(--navy);letter-spacing:-1px}
+.brand span{color:var(--gold)}
+.tag{font-size:11px;color:#34445e;margin-top:2px}
+.search{display:flex;flex:1;max-width:440px;margin-left:auto}
+.search input{width:100%;padding:11px 12px;border:1px solid #d7deea;border-radius:10px 0 0 10px;min-width:0;margin:0}
+.search button{border:0;background:var(--navy);color:white;padding:0 16px;border-radius:0 10px 10px 0;font-weight:700;cursor:pointer}
+.actions{display:flex;align-items:center;gap:8px}
+.btn{border:0;border-radius:9px;padding:10px 14px;background:var(--navy);color:#fff;font-weight:700;cursor:pointer;transition:.15s}
+.btn:hover{opacity:.92}
+.btn.gold{background:var(--gold);color:#171717}
+.btn.light{background:#eaf0fa;color:var(--navy)}
+.btn.green{background:var(--green);color:#fff}
+.cart-pill-btn{position:relative;display:inline-flex;align-items:center;gap:6px;background:#092b68;color:#fff;border:0;border-radius:9px;padding:10px 13px;font-weight:800;cursor:pointer}
+.cart-badge{background:var(--gold);color:#111;border-radius:999px;padding:2px 7px;font-size:12px;font-weight:900}
+.hamb{font-size:25px;background:none;border:0;color:var(--navy);cursor:pointer;padding:4px 8px}
+
+nav{display:none;background:#fff;border-top:1px solid #e5eaf2;padding:12px 18px}
+nav.open{display:block}
+nav .navinner{max-width:1240px;margin:auto;display:flex;flex-wrap:wrap;gap:8px}
+nav a{color:var(--navy);text-decoration:none;padding:9px 12px;border-radius:8px;font-weight:700;font-size:14px}
+nav a:hover{background:#edf2fa}
+
+/* Layout & Hero */
+main{max-width:1240px;margin:auto;padding:20px 16px}
+.hero{background:linear-gradient(115deg,#071f4d,#124a9c 70%,#d99a08);color:#fff;border-radius:22px;padding:38px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.hero h1{font-size:clamp(28px,5vw,46px);margin:0 0 12px}
+.hero p{max-width:650px;line-height:1.7;color:#edf3ff}
+.hero .hero-mark{font-size:68px;opacity:.95}
+.hero-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+section{scroll-margin-top:105px;margin:30px 0}
+.section-title{font-size:25px;color:var(--navy);margin:0 0 14px}
+.muted{color:var(--muted);line-height:1.65}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:13px}
+.card{background:#fff;border:1px solid #e5eaf2;border-radius:15px;padding:17px;box-shadow:0 5px 18px #10264b08}
+.class-card{cursor:pointer;text-align:center;border-bottom:4px solid var(--gold);font-weight:800;color:var(--navy);font-size:17px;transition:.2s}
+.class-card:hover,.book:hover{transform:translateY(-2px);box-shadow:0 8px 22px #10264b18}
+.subject,.chapter{cursor:pointer;color:var(--navy);font-weight:700}
+.pill{display:inline-block;background:#edf3ff;color:var(--navy);padding:5px 10px;border-radius:20px;font-size:12px;font-weight:700}
+
+/* NCERT Bookstore Filters & Cards */
+.filter-bar{background:#fff;border:1px solid #e5eaf2;border-radius:15px;padding:15px;margin-bottom:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;align-items:end;box-shadow:0 5px 18px #10264b08}
+.filter-bar label{display:block;margin-bottom:4px;font-size:12px;color:#334155;font-weight:700}
+.filter-bar select,.filter-bar input{margin:0;padding:10px 12px}
+.catalog-meta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;font-size:14px;color:#334155}
+.book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px}
+.book{display:flex;flex-direction:column;justify-content:space-between;transition:.2s;padding:14px}
+.book-img-wrap{position:relative;height:195px;border-radius:11px;overflow:hidden;background:#f8fafc;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center}
+.book-img-wrap img{width:100%;height:100%;object-fit:contain;padding:4px}
+.book-cls-badge{position:absolute;top:8px;left:8px;background:#092b68;color:#fff;font-size:11px;font-weight:800;padding:4px 8px;border-radius:7px;z-index:2}
+.book-med-badge{position:absolute;top:8px;right:8px;background:#f2a900;color:#111;font-size:11px;font-weight:800;padding:4px 8px;border-radius:7px;z-index:2}
+.book h3{font-size:15px;margin:10px 0 4px;line-height:1.35;color:#0f172a}
+.book-sub{font-size:12px;color:var(--muted);margin:0 0 8px}
+.price-row{display:flex;align-items:baseline;gap:8px;margin:6px 0 10px}
+.price-now{font-size:19px;font-weight:900;color:var(--navy)}
+.price-mrp{font-size:12px;color:#94a3b8;text-decoration:line-through}
+.price-off{font-size:11px;font-weight:800;color:var(--green);background:#dcfce7;padding:2px 6px;border-radius:6px}
+.book-actions{display:flex;gap:7px;margin-top:auto}
+.book-actions .btn{flex:1;padding:9px 8px;font-size:12px;text-align:center}
+.qty-box{display:flex;align-items:center;justify-content:space-between;background:#edf3ff;border-radius:9px;padding:4px;flex:1}
+.qty-box button{border:0;background:var(--navy);color:#fff;width:28px;height:28px;border-radius:7px;font-weight:900;cursor:pointer}
+.qty-box span{font-weight:800;color:var(--navy);font-size:14px}
+
+/* Cart & Online Payment Layout */
+.checkout-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:start}
+.cart-items-list{display:grid;gap:10px;max-height:430px;overflow:auto;padding-right:4px}
+.cart-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #e5eaf2;border-radius:11px;padding:10px;background:#f8fafc}
+.cart-row-info{flex:1;min-width:0}
+.cart-row-title{font-weight:800;font-size:14px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cart-row-sub{font-size:12px;color:var(--muted)}
+.cart-row-ctrl{display:flex;align-items:center;gap:6px}
+.cart-row-ctrl button{border:0;background:#e2e8f0;color:#0f172a;width:26px;height:26px;border-radius:6px;font-weight:800;cursor:pointer}
+.cart-row-ctrl button.del{background:#fee2e2;color:#b91c1c}
+.bill-summary{border-top:2px dashed #cbd5e1;margin-top:14px;padding-top:12px;display:grid;gap:7px;font-size:14px}
+.bill-line{display:flex;justify-content:space-between}
+.bill-total{display:flex;justify-content:space-between;font-size:19px;font-weight:900;color:var(--navy);border-top:1px solid #e2e8f2;padding-top:8px;margin-top:4px}
+
+.pay-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 14px}
+.pay-opt{border:1.5px solid #d5dce8;border-radius:10px;padding:10px;cursor:pointer;font-size:13px;font-weight:700;display:flex;align-items:center;gap:7px;background:#fff}
+.pay-opt input{width:auto;margin:0}
+.pay-opt:has(input:checked){border-color:var(--navy);background:#edf3ff;color:var(--navy)}
+.online-pay-box{background:#f0f6ff;border:1.5px solid #bfd7fe;border-radius:12px;padding:14px;margin:10px 0 14px}
+.upi-direct-box{display:grid;gap:8px}
+.upi-apps-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.upi-chip{background:#fff;border:1px solid #cbd5e1;color:var(--navy);font-size:12px;font-weight:800;padding:5px 10px;border-radius:8px}
+
+/* Forms & Modals */
+input,textarea,select{font:inherit;width:100%;padding:11px 12px;border:1px solid #d5dce8;border-radius:9px;margin:5px 0 12px;background:#fff}
+label{font-weight:700;font-size:13px;color:#334155}
+textarea{min-height:82px;resize:vertical}
+.formbox{max-width:620px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hidden{display:none!important}
+.notice{padding:12px;background:#fff7df;border:1px solid #f4d37b;border-radius:10px;color:#654800;margin:12px 0}
+.list{display:grid;gap:10px}
+.list-item{background:#fff;border:1px solid #e5eaf2;border-radius:11px;padding:13px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+
+footer{background:#081d43;color:#e8efff;padding:30px 18px;margin-top:40px}
+footer a{color:#ffd16b;text-decoration:none;margin-right:14px}
+footer .foot{max-width:1240px;margin:auto;line-height:2}
+
+.modal{position:fixed;inset:0;background:#06152dcc;display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal.show{display:flex}
+.modalbox{background:#fff;border-radius:16px;padding:22px;width:min(540px,100%);max-height:90vh;overflow:auto}
+.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.close{border:0;background:#eef2f8;border-radius:8px;padding:8px 12px;cursor:pointer;font-weight:800}
+
+.social-card{background:#0d397d;color:#fff}
+.social-card .muted{color:#e3edff}
+.social-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.social-links a{display:inline-block;background:#fff;color:#0d397d;text-decoration:none;font-weight:800;padding:10px 14px;border-radius:9px}
+
+.ai-messages{display:grid;gap:10px;max-height:340px;overflow:auto;padding:10px 0}
+.ai-message{padding:12px 14px;border-radius:13px;max-width:90%;white-space:pre-wrap;line-height:1.55}
+.ai-message.bot{background:#edf3ff;color:#102c5c;justify-self:start}
+.ai-message.user{background:#0d397d;color:#fff;justify-self:end}
+.ai-form{display:flex;align-items:end;gap:10px}
+.ai-form textarea{margin:0;flex:1}
+.ai-form button{min-height:46px}
+.ai-note{font-size:12px;color:#64748b;margin-bottom:0}
+
+/* Toast Notification */
+.toast{position:fixed;bottom:20px;right:20px;background:#092b68;color:#fff;padding:13px 18px;border-radius:12px;font-weight:700;font-size:14px;box-shadow:0 10px 25px #00000033;z-index:60;border-left:5px solid var(--gold);transform:translateY(120%);opacity:0;transition:.25s}
+.toast.show{transform:translateY(0);opacity:1}
+
+@media(max-width:860px){
+  .checkout-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .top{flex-wrap:wrap;gap:8px}
+  .logo{width:46px;height:46px}
+  .logo-right{order:2}
+  .brandwrap{flex:1}
+  .search{order:3;max-width:none;flex-basis:100%;margin:0}
+  .actions .btn,.cart-pill-btn{padding:8px 10px;font-size:12px}
+  .hero{padding:26px 20px}
+  .hero .hero-mark{display:none}
+  .row,.pay-methods{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .book-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .book-img-wrap{height:155px}
+  .ai-form{align-items:stretch;flex-direction:column}
+  .ai-form button{width:100%}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="top">
+  <div class="brandwrap">
+   <div class="brand">SMART<span>SHIKSHA</span></div>
+   <div class="tag">Smart Way to Learn • Complete NCERT Store</div>
+  </div>
+  <form class="search" onsubmit="event.preventDefault();searchBooks()">
+   <input id="bookSearch" placeholder="Search NCERT books (Class, Subject, Title)..." aria-label="Search books">
+   <button type="submit">Search</button>
+  </form>
+  <div class="actions">
+   <button class="cart-pill-btn" onclick="document.getElementById('payments').scrollIntoView({behavior:'smooth'})" title="View Cart & Online Payment">
+    🛒 Cart <span class="cart-badge" id="headerCartCount">0</span>
+   </button>
+   <button class="btn light" onclick="openModal('loginModal')">Login</button>
+   <button class="btn gold" onclick="openModal('registerModal')">Register</button>
+   <button class="hamb" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+  </div>
+  <img class="logo logo-right" src="logo.png" alt="SMARTSHIKSHA logo" onerror="this.style.display='none'">
+ </div>
+ <nav id="menu">
+  <div class="navinner">
+   <a href="#about" onclick="toggleMenu()">About</a>
+   <a href="#books" onclick="toggleMenu()">NCERT Books (Class 1–12)</a>
+   <a href="#payments" onclick="toggleMenu()">Cart &amp; Online Payment</a>
+   <a href="#classes" onclick="toggleMenu()">Classes</a>
+   <a href="#notes" onclick="toggleMenu()">Notes</a>
+   <a href="#chapters" onclick="toggleMenu()">Chapters</a>
+   <a href="#doubt" onclick="toggleMenu()">Ask Doubt</a>
+   <a href="#ask-ai" onclick="toggleMenu()">Ask AI</a>
+   <a href="#practice" onclick="toggleMenu()">Practice Test</a>
+   <a href="#important" onclick="toggleMenu()">Important Questions</a>
+   <a href="#quizzes" onclick="toggleMenu()">Quizzes</a>
+   <a href="#review" onclick="toggleMenu()">Give Review</a>
+   <a href="#contact" onclick="toggleMenu()">Contact Us</a>
+  </div>
+ </nav>
+</header>
+
+<main>
+ <!-- HERO -->
+ <div class="hero">
+  <div>
+   <span class="pill" style="background:#ffffff22;color:#fff">YOUR COMPLETE LEARNING &amp; NCERT BOOK PARTNER</span>
+   <h1>Learn Today,<br>Lead Tomorrow!</h1>
+   <p>Welcome to SMARTSHIKSHA — explore all Class 1 to 12 NCERT textbooks (English &amp; Hindi Medium) with real covers, class-wise notes, practice tests, important questions, and quizzes.</p>
+   <div class="hero-btns">
+    <button class="btn gold" onclick="document.querySelector('#books').scrollIntoView({behavior:'smooth'})">📚 Browse All NCERT Books</button>
+    <button class="btn light" onclick="document.querySelector('#classes').scrollIntoView({behavior:'smooth'})">Explore Classes 1–12</button>
+   </div>
+  </div>
+  <div class="hero-mark">📚</div>
+ </div>
+
+ <!-- ABOUT -->
+ <section id="about">
+  <h2 class="section-title">About SMARTSHIKSHA</h2>
+  <div class="card">
+   <p>Welcome to SMARTSHIKSHA, your trusted online learning platform and complete NCERT textbook store! Our mission is to make education simple, smart, and accessible for every student from Class 1 to Class 12.</p>
+   <p>We provide authentic NCERT textbooks across Science, Commerce, Arts/Humanities, and Primary/Middle school subjects in both English and Hindi mediums, alongside quality study notes, important questions, practice tests, and quizzes.</p>
+   <p><b>Our Mission:</b> To make learning easy, affordable, and accessible to everyone. &nbsp;|&nbsp; <b>Our Vision:</b> To build a smart learning community where every student can learn, grow, and succeed.</p>
+  </div>
+ </section>
+
+ <!-- COMPLETE NCERT BOOK STORE (CLASS 1 TO 12) -->
+ <section id="books">
+  <h2 class="section-title">Complete NCERT Books Store (Class 1 to 12 — All Subjects)</h2>
+  <p class="muted">Browse every NCERT textbook from Class 1 to 12 across English &amp; Hindi medium. Add books to your cart and the total amount updates automatically in the Online Payment section.</p>
+
+  <div class="filter-bar">
+   <div>
+    <label for="filterClass">Filter by Class</label>
+    <select id="filterClass" onchange="applyBookFilters()">
+     <option value="all">All Classes (Class 1 – 12)</option>
+     <option value="1">Class 1</option>
+     <option value="2">Class 2</option>
+     <option value="3">Class 3</option>
+     <option value="4">Class 4</option>
+     <option value="5">Class 5</option>
+     <option value="6">Class 6</option>
+     <option value="7">Class 7</option>
+     <option value="8">Class 8</option>
+     <option value="9">Class 9</option>
+     <option value="10">Class 10</option>
+     <option value="11">Class 11 (Sci / Com / Arts)</option>
+     <option value="12">Class 12 (Sci / Com / Arts)</option>
+    </select>
+   </div>
+   <div>
+    <label for="filterMedium">Filter by Medium</label>
+    <select id="filterMedium" onchange="applyBookFilters()">
+     <option value="all">All Mediums (English &amp; Hindi)</option>
+     <option value="English">English Medium</option>
+     <option value="Hindi">Hindi / Sanskrit / Urdu Medium</option>
+    </select>
+   </div>
+   <div>
+    <label for="filterSubject">Filter by Subject</label>
+    <select id="filterSubject" onchange="applyBookFilters()">
+     <option value="all">All Subjects</option>
+    </select>
+   </div>
+   <div>
+    <label for="filterKeyword">Search Book Title</label>
+    <input id="filterKeyword" oninput="applyBookFilters()" placeholder="e.g. Mridang, Sarangi, Physics...">
+   </div>
+   <div>
+    <button type="button" class="btn light" style="width:100%" onclick="resetBookFilters()">Reset Filters</button>
+   </div>
+  </div>
+
+  <div class="catalog-meta">
+   <span id="bookCountLabel">Loading NCERT catalog...</span>
+   <button type="button" class="btn gold" onclick="document.getElementById('payments').scrollIntoView({behavior:'smooth'})">
+    Go to Cart &amp; Pay (₹<span id="metaCartTotal">0</span>) →
+   </button>
+  </div>
+
+  <div class="book-grid" id="bookGrid"></div>
+ </section>
+
+ <!-- SHOPPING CART & ONLINE PAYMENT ONLY (NO COD & NO QR CODE) -->
+ <section id="payments">
+  <h2 class="section-title">Shopping Cart &amp; Secure Online Payment</h2>
+  <p class="muted">Review your selected NCERT books below. Your total payable amount is calculated automatically from your cart. Only 100% secure online payments are accepted.</p>
+
+  <div class="checkout-grid">
+   <!-- Left: Cart Items -->
+   <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+     <h3 style="margin:0;color:var(--navy)">🛒 Your Book Cart (<span id="cartItemCount">0</span> items)</h3>
+     <button type="button" class="btn light" style="padding:6px 10px;font-size:12px" onclick="clearCart()">Clear Cart</button>
+    </div>
+
+    <div id="cartItemsContainer" class="cart-items-list">
+     <div class="notice">Your cart is empty. Click <b>Add to Cart</b> on any NCERT book above to add it here.</div>
+    </div>
+
+    <div class="bill-summary">
+     <div class="bill-line"><span>Books Subtotal:</span><b>₹<span id="billSubtotal">0</span></b></div>
+     <div class="bill-line"><span>Packaging &amp; Delivery:</span><b style="color:var(--green)" id="billShipping">FREE (₹0)</b></div>
+     <div class="bill-total"><span>Total Payable Amount:</span><span>₹<span id="billGrandTotal">0</span></span></div>
+    </div>
+   </div>
+
+   <!-- Right: Online Payment Form -->
+   <div class="card">
+    <h3 style="margin:0 0 12px;color:var(--navy)">💳 Complete Online Payment</h3>
+    <form id="paymentForm" onsubmit="completeOrder(event)">
+     <label>Student / Buyer Full Name</label>
+     <input id="payName" required placeholder="Enter full name">
+
+     <label>Complete Delivery Address (with PIN Code)</label>
+     <textarea id="payAddress" required placeholder="House/Street, City, District, State, PIN Code"></textarea>
+
+     <div class="row">
+      <div>
+       <label>Email Address</label>
+       <input id="payEmail" type="email" required placeholder="student@example.com">
+      </div>
+      <div>
+       <label>Mobile Number</label>
+       <input id="payPhone" type="tel" required placeholder="10-digit mobile number">
+      </div>
+     </div>
+
+     <label>Selected Books Summary</label>
+     <input id="payBooksSummary" readonly value="No books added yet" style="background:#f8fafc;color:#334155;font-size:12px">
+
+     <label>Total Amount to Pay (₹) — Auto-Calculated from Cart</label>
+     <input id="payAmountInput" type="number" min="1" required readonly value="0" style="background:#fffbeb;border-color:#f2a900;font-size:20px;font-weight:900;color:#092b68">
+
+     <label>Choose Online Payment Method <span style="color:var(--green);font-size:11px">(100% Secure Online Payment Only)</span></label>
+     <div class="pay-methods">
+      <label class="pay-opt"><input type="radio" name="payMethod" value="UPI ID / UPI App" checked onchange="togglePayDetails()"> 📱 UPI / UPI App</label>
+      <label class="pay-opt"><input type="radio" name="payMethod" value="Debit / Credit Card" onchange="togglePayDetails()"> 💳 Debit / Credit Card</label>
+      <label class="pay-opt"><input type="radio" name="payMethod" value="Net Banking" onchange="togglePayDetails()"> 🏦 Net Banking</label>
+     </div>
+
+     <!-- Direct UPI ID / App Box (No QR Code) -->
+     <div id="upiBox" class="online-pay-box">
+      <div class="upi-direct-box">
+       <div style="font-weight:800;color:var(--navy);font-size:14px">Pay via UPI ID or UPI App</div>
+       <div style="font-size:12px;color:#334155">Merchant UPI ID: <b>smartshiksha@upi</b> &nbsp;|&nbsp; Payable: <b style="color:var(--green)">₹<span id="upiPayAmt">0</span></b></div>
+       <div class="upi-apps-row">
+        <span class="upi-chip">Google Pay</span>
+        <span class="upi-chip">PhonePe</span>
+        <span class="upi-chip">Paytm</span>
+        <span class="upi-chip">BHIM UPI</span>
+       </div>
+       <label style="margin-top:6px;margin-bottom:2px">Enter Your UPI ID (Optional for UPI App)</label>
+       <input id="upiUserId" placeholder="yourname@okaxis / yourname@ybl" style="margin-bottom:0">
+      </div>
+     </div>
+
+     <!-- Card Payment Box -->
+     <div id="cardBox" class="online-pay-box hidden">
+      <label>Card Number</label>
+      <input id="cardNum" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" style="margin-bottom:8px">
+      <div class="row">
+       <div><label>Expiry (MM/YY)</label><input id="cardExp" maxlength="5" placeholder="MM/YY" style="margin-bottom:0"></div>
+       <div><label>CVV</label><input id="cardCvv" type="password" maxlength="3" placeholder="***" style="margin-bottom:0"></div>
+      </div>
+     </div>
+
+     <!-- Net Banking Box -->
+     <div id="netBankingBox" class="online-pay-box hidden">
+      <label>Select Your Bank</label>
+      <select id="bankSelect" style="margin-bottom:0">
+       <option value="SBI">State Bank of India (SBI)</option>
+       <option value="HDFC">HDFC Bank</option>
+       <option value="ICICI">ICICI Bank</option>
+       <option value="PNB">Punjab National Bank (PNB)</option>
+       <option value="Axis">Axis Bank</option>
+       <option value="Other">Other Indian Banks</option>
+      </select>
+     </div>
+
+     <button type="submit" class="btn gold" style="width:100%;font-size:16px;padding:14px">Pay Online Now ₹<span id="payBtnAmount">0</span></button>
+    </form>
+   </div>
+  </div>
+ </section>
+
+ <!-- CLASSES & CHAPTERS -->
+ <section id="classes">
+  <h2 class="section-title">Choose Your Class (Study Material)</h2>
+  <p class="muted">Select a class to explore its subjects, chapters, notes, tests, and important questions.</p>
+  <div class="grid" id="classGrid"></div>
+ </section>
+
+ <section id="chapters" class="hidden">
+  <h2 class="section-title" id="chapterHeading">Subjects &amp; Chapters</h2>
+  <div id="subjectGrid" class="grid"></div>
+  <div id="chapterPanel" class="hidden" style="margin-top:16px">
+   <h3 id="subjectHeading" style="color:var(--navy)"></h3>
+   <div id="chapterGrid" class="grid"></div>
+  </div>
+ </section>
+
+ <section id="notes">
+  <h2 class="section-title">Notes</h2>
+  <div class="card">
+   <p class="muted">Choose a class, subject and chapter above. Chapter-wise study notes will appear here.</p>
+   <div id="notesList" class="list"><div class="list-item">Select any class &amp; chapter above to view Notes.</div></div>
+  </div>
+ </section>
+
+ <section id="practice">
+  <h2 class="section-title">Practice Tests</h2>
+  <div class="card">
+   <p class="muted">Select a class and chapter to access practice tests.</p>
+   <div id="practiceList" class="list"><div class="list-item">Select any class &amp; chapter above to view Practice Tests.</div></div>
+  </div>
+ </section>
+
+ <section id="important">
+  <h2 class="section-title">Important Questions</h2>
+  <div class="card">
+   <p class="muted">Class-wise and chapter-wise important board &amp; school exam questions.</p>
+   <div id="importantList" class="list"><div class="list-item">Select any class &amp; chapter above to view Important Questions.</div></div>
+  </div>
+ </section>
+
+ <!-- QUIZZES -->
+ <section id="quizzes">
+  <h2 class="section-title">Class-wise Quizzes</h2>
+  <div class="grid" id="quizGrid"></div>
+  <div id="quizArea" class="card hidden" style="margin-top:14px"></div>
+ </section>
+
+ <!-- ASK A DOUBT -->
+ <section id="doubt">
+  <h2 class="section-title">Ask a Doubt</h2>
+  <div class="card formbox">
+   <form onsubmit="saveSimple(event,'Your doubt has been submitted! Our academic team will reply soon.')">
+    <label>Your Name</label>
+    <input required placeholder="Enter your name">
+    <label>Email</label>
+    <input type="email" required placeholder="Enter your email">
+    <label>Class</label>
+    <select id="doubtClassSelect" required><option value="">Select class</option></select>
+    <label>Your Question</label>
+    <textarea required placeholder="Write your doubt here"></textarea>
+    <button class="btn">Submit Doubt</button>
+   </form>
+  </div>
+ </section>
+
+ <!-- ASK AI -->
+ <section id="ask-ai">
+  <h2 class="section-title">Ask AI</h2>
+  <div class="card ai-card">
+   <p class="muted">Ask questions about school subjects, NCERT concepts, homework, or books. The AI will reply in a clear, student-friendly way.</p>
+   <div id="aiMessages" class="ai-messages" aria-live="polite">
+    <div class="ai-message bot">Hello! I am SMARTSHIKSHA AI. Ask me about any Class 1–12 NCERT subject, chapter, or book!</div>
+   </div>
+   <form id="aiForm" class="ai-form" onsubmit="sendAIMessage(event)">
+    <textarea id="aiQuestion" rows="2" maxlength="4000" required placeholder="Type your question here..."></textarea>
+    <button class="btn gold" id="aiSend" type="submit">Ask AI</button>
+   </form>
+   <p class="ai-note">Please do not share passwords, phone numbers or other private information.</p>
+  </div>
+ </section>
+
+ <!-- GIVE REVIEW -->
+ <section id="review">
+  <h2 class="section-title">Give Review</h2>
+  <div class="card formbox">
+   <form onsubmit="addReview(event)">
+    <label>Your Name</label>
+    <input id="reviewName" required placeholder="Name">
+    <label>Your Rating</label>
+    <select id="reviewRating">
+     <option value="5">5 ★ (Excellent)</option>
+     <option value="4">4 ★ (Very Good)</option>
+     <option value="3">3 ★ (Good)</option>
+     <option value="2">2 ★ (Fair)</option>
+     <option value="1">1 ★ (Needs Improvement)</option>
+    </select>
+    <label>Your Review</label>
+    <textarea id="reviewText" required placeholder="Write your review"></textarea>
+    <button class="btn">Submit Review</button>
+   </form>
+   <div id="reviews" class="list" style="margin-top:14px"></div>
+  </div>
+ </section>
+
+ <!-- CONTACT -->
+ <section id="contact">
+  <h2 class="section-title">Contact Us</h2>
+  <div class="card">
+   <p>Email: <a href="mailto:support@smartshiksha.in">support@smartshiksha.in</a></p>
+   <p class="muted">For bulk school orders or NCERT textbook inquiries, reach out to our student support desk anytime.</p>
+  </div>
+ </section>
+
+ <!-- SOCIAL -->
+ <section id="social">
+  <h2 class="section-title">Follow SMARTSHIKSHA</h2>
+  <div class="card social-card">
+   <p class="muted">Follow us on our social media platforms for study updates and announcements.</p>
+   <div class="social-links">
+    <a href="#social" onclick="showMsg('Opening SMARTSHIKSHA YouTube Channel')">▶ YouTube</a>
+    <a href="#social" onclick="showMsg('Opening SMARTSHIKSHA Facebook Page')">f Facebook</a>
+    <a href="#social" onclick="showMsg('Opening SMARTSHIKSHA Instagram')">◎ Instagram</a>
+    <a href="#social" onclick="showMsg('Opening SMARTSHIKSHA Telegram Channel')">➤ Telegram</a>
+    <a href="#social" onclick="showMsg('Opening SMARTSHIKSHA WhatsApp Updates')">◉ WhatsApp</a>
+   </div>
+  </div>
+ </section>
+</main>
+
+<footer>
+ <div class="foot">
+  <b>SMARTSHIKSHA</b> — Smart Way to Learn.<br>
+  Learn Today, Lead Tomorrow!<br>
+  <a href="#about">About</a>
+  <a href="#books">NCERT Books</a>
+  <a href="#payments">Cart &amp; Payment</a>
+  <a href="#classes">Classes</a>
+  <a href="#contact">Contact</a><br>
+  © <span id="year"></span> SMARTSHIKSHA. All rights reserved.
+ </div>
+</footer>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+ <div class="modalbox">
+  <div class="modalhead"><h2>Login</h2><button class="close" onclick="closeModal('loginModal')">✕</button></div>
+  <form onsubmit="saveSimple(event,'Logged in to SMARTSHIKSHA student portal!')">
+   <label>Email</label>
+   <input type="email" required placeholder="Email address">
+   <label>Password</label>
+   <input type="password" required placeholder="Password">
+   <button class="btn" style="width:100%">Login</button>
+  </form>
+ </div>
+</div>
+
+<!-- REGISTER MODAL -->
+<div class="modal" id="registerModal">
+ <div class="modalbox">
+  <div class="modalhead"><h2>Register</h2><button class="close" onclick="closeModal('registerModal')">✕</button></div>
+  <form onsubmit="saveSimple(event,'Account created successfully on SMARTSHIKSHA!')">
+   <label>Full Name</label>
+   <input required placeholder="Full name">
+   <label>Address</label>
+   <textarea required placeholder="Address"></textarea>
+   <div class="row">
+    <div><label>Email</label><input type="email" required placeholder="Email"></div>
+    <div><label>Phone Number</label><input type="tel" required placeholder="Phone number"></div>
+   </div>
+   <label>Class</label>
+   <select id="regClassSelect"><option value="">Select class</option></select>
+   <label>Password</label>
+   <input type="password" minlength="8" required placeholder="At least 8 characters">
+   <button class="btn gold" style="width:100%">Create Account</button>
+  </form>
+ </div>
+</div>
+
+<!-- ORDER RECEIPT MODAL -->
+<div class="modal" id="orderModal">
+ <div class="modalbox">
+  <div class="modalhead">
+   <h2 style="margin:0;color:var(--green)">Order Receipt</h2>
+   <button class="close" onclick="closeModal('orderModal')">✕</button>
+  </div>
+  <div id="orderReceiptBody"></div>
+  <button class="btn" style="width:100%;margin-top:14px" onclick="closeModal('orderModal')">Done</button>
+ </div>
+</div>
+
+<!-- TOAST NOTIFICATION -->
+<div id="toast" class="toast"></div>
+
+<script>
+const classes = Array.from({length:12}, (_,i) => i+1);
+const subjectsByClass = {
+ 1:["English","Hindi","Mathematics"],
+ 2:["English","Hindi","Mathematics"],
+ 3:["English","Hindi","Mathematics","Environmental Studies"],
+ 4:["English","Hindi","Mathematics","Environmental Studies"],
+ 5:["English","Hindi","Mathematics","Environmental Studies"],
+ 6:["English","Hindi","Mathematics","Science","Social Science","Sanskrit"],
+ 7:["English","Hindi","Mathematics","Science","Social Science","Sanskrit"],
+ 8:["English","Hindi","Mathematics","Science","Social Science","Sanskrit"],
+ 9:["English","Hindi","Mathematics","Science","Social Science","Sanskrit"],
+ 10:["English","Hindi","Mathematics","Science","Social Science","Sanskrit"],
+ 11:["English","Hindi","Physics","Chemistry","Mathematics","Biology","Accountancy","Business Studies","Economics","History","Geography","Political Science","Sociology","Psychology","Computer Science","Informatics Practices"],
+ 12:["English","Hindi","Physics","Chemistry","Mathematics","Biology","Accountancy","Business Studies","Economics","History","Geography","Political Science","Sociology","Psychology","Computer Science","Informatics Practices"]
+};
+
+// Complete Class 1 to 12 NCERT Book Master Catalog
+// Includes exact user-uploaded local cover filenames and ₹129 price for the 4 Class 1 NCERT books
+const rawNCERTCatalog = [
+ // CLASS 1 (Updated with real uploaded cover filenames and ₹129 price)
+ {cls:1, code:"aemr1", subject:"English", medium:"English", title:"NCERT Mridang – English Textbook for Class 1", price:129, customCover:"1000159835.jpg"},
+ {cls:1, code:"ahsr1", subject:"Hindi", medium:"Hindi", title:"NCERT Sarangi (सारंगी) – Hindi Textbook for Class 1", price:129, customCover:"1000159834.jpg"},
+ {cls:1, code:"aejm1", subject:"Mathematics", medium:"English", title:"NCERT Joyful Mathematics – Textbook for Class 1", price:129, customCover:"1000159837.jpg"},
+ {cls:1, code:"ahjm1", subject:"Mathematics", medium:"Hindi", title:"NCERT Anandmay Ganit (आनंदमय गणित) – Class 1", price:129, customCover:"1000159839.jpg"},
+ {cls:1, code:"aurd1", subject:"Urdu", medium:"Hindi", title:"NCERT Ibtidai Urdu – Textbook for Class 1", price:205},
+
+ // CLASS 2
+ {cls:2, code:"bemr1", subject:"English", medium:"English", title:"NCERT Mridang – English Textbook for Class 2", price:210},
+ {cls:2, code:"bhsr1", subject:"Hindi", medium:"Hindi", title:"NCERT Sarangi (सारंगी) – Hindi Textbook for Class 2", price:210},
+ {cls:2, code:"bejm1", subject:"Mathematics", medium:"English", title:"NCERT Joyful Mathematics – Textbook for Class 2", price:225},
+ {cls:2, code:"bhjm1", subject:"Mathematics", medium:"Hindi", title:"NCERT Anandmay Ganit (आनंदमय गणित) – Class 2", price:225},
+ {cls:2, code:"burd1", subject:"Urdu", medium:"Hindi", title:"NCERT Ibtidai Urdu – Textbook for Class 2", price:215},
+
+ // CLASS 3
+ {cls:3, code:"cesa1", subject:"English", medium:"English", title:"NCERT Santoor – English Textbook for Class 3", price:229},
+ {cls:3, code:"chve1", subject:"Hindi", medium:"Hindi", title:"NCERT Veena (वीणा) – Hindi Textbook for Class 3", price:229},
+ {cls:3, code:"cemm1", subject:"Mathematics", medium:"English", title:"NCERT Maths Mela – Mathematics Textbook for Class 3", price:245},
+ {cls:3, code:"chmm1", subject:"Mathematics", medium:"Hindi", title:"NCERT Ganit Mela (गणित मेला) – Class 3", price:245},
+ {cls:3, code:"ceww1", subject:"Environmental Studies", medium:"English", title:"NCERT Our Wondrous World (EVS) – Class 3", price:239},
+ {cls:3, code:"chww1", subject:"Environmental Studies", medium:"Hindi", title:"NCERT Hamara Adbhut Sansar (EVS) – Class 3", price:239},
+ {cls:3, code:"curd1", subject:"Urdu", medium:"Hindi", title:"NCERT Urdu Textbook – Class 3", price:229},
+
+ // CLASS 4
+ {cls:4, code:"deen1", subject:"English", medium:"English", title:"NCERT Marigold – English Textbook for Class 4", price:249},
+ {cls:4, code:"dhhn1", subject:"Hindi", medium:"Hindi", title:"NCERT Rimjhim (रिमझिम) – Hindi Textbook for Class 4", price:249},
+ {cls:4, code:"demh1", subject:"Mathematics", medium:"English", title:"NCERT Math-Magic – Mathematics Textbook for Class 4", price:265},
+ {cls:4, code:"dhmh1", subject:"Mathematics", medium:"Hindi", title:"NCERT Ganit Ka Jadoo (गणित का जादू) – Class 4", price:265},
+ {cls:4, code:"deap1", subject:"Environmental Studies", medium:"English", title:"NCERT Looking Around – EVS Textbook for Class 4", price:255},
+ {cls:4, code:"dhap1", subject:"Environmental Studies", medium:"Hindi", title:"NCERT Aas-Paas (आस-पास) – EVS Class 4", price:255},
+ {cls:4, code:"durd1", subject:"Urdu", medium:"Hindi", title:"NCERT Urdu Textbook – Class 4", price:249},
+
+ // CLASS 5
+ {cls:5, code:"eeen1", subject:"English", medium:"English", title:"NCERT Marigold – English Textbook for Class 5", price:269},
+ {cls:5, code:"ehhn1", subject:"Hindi", medium:"Hindi", title:"NCERT Rimjhim (रिमझिम) – Hindi Textbook for Class 5", price:269},
+ {cls:5, code:"eemh1", subject:"Mathematics", medium:"English", title:"NCERT Math-Magic – Mathematics Textbook for Class 5", price:289},
+ {cls:5, code:"ehmh1", subject:"Mathematics", medium:"Hindi", title:"NCERT Ganit Ka Jadoo (गणित का जादू) – Class 5", price:289},
+ {cls:5, code:"eeap1", subject:"Environmental Studies", medium:"English", title:"NCERT Looking Around – EVS Textbook for Class 5", price:279},
+ {cls:5, code:"ehap1", subject:"Environmental Studies", medium:"Hindi", title:"NCERT Aas-Paas (आस-पास) – EVS Class 5", price:279},
+ {cls:5, code:"eurd1", subject:"Urdu", medium:"Hindi", title:"NCERT Urdu Textbook – Class 5", price:269},
+
+ // CLASS 6
+ {cls:6, code:"fepr1", subject:"English", medium:"English", title:"NCERT Poorvi – English Textbook for Class 6", price:299},
+ {cls:6, code:"fhml1", subject:"Hindi", medium:"Hindi", title:"NCERT Malhar (मल्हार) – Hindi Textbook for Class 6", price:299},
+ {cls:6, code:"fegp1", subject:"Mathematics", medium:"English", title:"NCERT Ganita Prakash – Mathematics Class 6", price:339},
+ {cls:6, code:"fhgp1", subject:"Mathematics", medium:"Hindi", title:"NCERT Ganit Prakash (गणित प्रकाश) – Class 6", price:339},
+ {cls:6, code:"fecu1", subject:"Science", medium:"English", title:"NCERT Curiosity – Science Textbook for Class 6", price:349},
+ {cls:6, code:"fhcu1", subject:"Science", medium:"Hindi", title:"NCERT Jigyasa (जिज्ञासा) – Science Class 6", price:349},
+ {cls:6, code:"fees1", subject:"Social Science", medium:"English", title:"NCERT Exploring Society: India and Beyond – Class 6", price:359},
+ {cls:6, code:"fhes1", subject:"Social Science", medium:"Hindi", title:"NCERT Samaj Ka Adhyayan: Bharat Aur Usse Aage – Class 6", price:359},
+ {cls:6, code:"fsdk1", subject:"Sanskrit", medium:"Hindi", title:"NCERT Deepakam (दीपकम्) – Sanskrit Class 6", price:299},
+ {cls:6, code:"furd1", subject:"Urdu", medium:"Hindi", title:"NCERT Apni Zuban – Urdu Textbook Class 6", price:299},
+
+ // CLASS 7
+ {cls:7, code:"gehc1", subject:"English", medium:"English", title:"NCERT Honeycomb – English Textbook for Class 7", price:319},
+ {cls:7, code:"geah1", subject:"English", medium:"English", title:"NCERT An Alien Hand – Supplementary English Class 7", price:299},
+ {cls:7, code:"ghvs1", subject:"Hindi", medium:"Hindi", title:"NCERT Vasant Bhag 2 (वसंत भाग-2) – Class 7", price:319},
+ {cls:7, code:"ghmb1", subject:"Hindi", medium:"Hindi", title:"NCERT Bal Mahabharat Katha (बाल महाभारत कथा) – Class 7", price:299},
+ {cls:7, code:"gemh1", subject:"Mathematics", medium:"English", title:"NCERT Mathematics – Textbook for Class 7", price:369},
+ {cls:7, code:"ghmh1", subject:"Mathematics", medium:"Hindi", title:"NCERT Ganit (गणित) – Textbook for Class 7", price:369},
+ {cls:7, code:"gesc1", subject:"Science", medium:"English", title:"NCERT Science – Textbook for Class 7", price:379},
+ {cls:7, code:"ghsc1", subject:"Science", medium:"Hindi", title:"NCERT Vigyan (विज्ञान) – Textbook for Class 7", price:379},
+ {cls:7, code:"gess1", subject:"Social Science", medium:"English", title:"NCERT Our Pasts II (History) – Class 7", price:339},
+ {cls:7, code:"gess2", subject:"Social Science", medium:"English", title:"NCERT Our Environment (Geography) – Class 7", price:329},
+ {cls:7, code:"gess3", subject:"Social Science", medium:"English", title:"NCERT Social and Political Life II (Civics) – Class 7", price:329},
+ {cls:7, code:"ghss1", subject:"Social Science", medium:"Hindi", title:"NCERT Hamare Ateet II (इतिहास) – Class 7", price:339},
+ {cls:7, code:"ghss2", subject:"Social Science", medium:"Hindi", title:"NCERT Hamara Paryavaran (भूगोल) – Class 7", price:329},
+ {cls:7, code:"ghss3", subject:"Social Science", medium:"Hindi", title:"NCERT Samajik Evam Rajnitik Jeevan II – Class 7", price:329},
+ {cls:7, code:"gskt1", subject:"Sanskrit", medium:"Hindi", title:"NCERT Ruchira Bhag 2 (रुचिरा भाग-2) – Sanskrit Class 7", price:309},
+ {cls:7, code:"gurd1", subject:"Urdu", medium:"Hindi", title:"NCERT Apni Zuban – Urdu Textbook Class 7", price:309},
+
+ // CLASS 8
+ {cls:8, code:"hehd1", subject:"English", medium:"English", title:"NCERT Honeydew – English Textbook for Class 8", price:349},
+ {cls:8, code:"heih1", subject:"English", medium:"English", title:"NCERT It So Happened – Supplementary English Class 8", price:319},
+ {cls:8, code:"hhvs1", subject:"Hindi", medium:"Hindi", title:"NCERT Vasant Bhag 3 (वसंत भाग-3) – Class 8", price:349},
+ {cls:8, code:"hhbk1", subject:"Hindi", medium:"Hindi", title:"NCERT Bharat Ki Khoj (भारत की खोज) – Class 8", price:329},
+ {cls:8, code:"hemh1", subject:"Mathematics", medium:"English", title:"NCERT Mathematics – Textbook for Class 8", price:419},
+ {cls:8, code:"hhmh1", subject:"Mathematics", medium:"Hindi", title:"NCERT Ganit (गणित) – Textbook for Class 8", price:419},
+ {cls:8, code:"hesc1", subject:"Science", medium:"English", title:"NCERT Science – Textbook for Class 8", price:429},
+ {cls:8, code:"hhsc1", subject:"Science", medium:"Hindi", title:"NCERT Vigyan (विज्ञान) – Textbook for Class 8", price:429},
+ {cls:8, code:"hess1", subject:"Social Science", medium:"English", title:"NCERT Our Pasts III (History) – Class 8", price:369},
+ {cls:8, code:"hess4", subject:"Social Science", medium:"English", title:"NCERT Resources and Development (Geography) – Class 8", price:359},
+ {cls:8, code:"hess3", subject:"Social Science", medium:"English", title:"NCERT Social and Political Life III (Civics) – Class 8", price:359},
+ {cls:8, code:"hhss1", subject:"Social Science", medium:"Hindi", title:"NCERT Hamare Ateet III (इतिहास) – Class 8", price:369},
+ {cls:8, code:"hhss4", subject:"Social Science", medium:"Hindi", title:"NCERT Sansadhan Evam Vikas (भूगोल) – Class 8", price:359},
+ {cls:8, code:"hhss3", subject:"Social Science", medium:"Hindi", title:"NCERT Samajik Evam Rajnitik Jeevan III – Class 8", price:359},
+ {cls:8, code:"hskt1", subject:"Sanskrit", medium:"Hindi", title:"NCERT Ruchira Bhag 3 (रुचिरा भाग-3) – Sanskrit Class 8", price:329},
+ {cls:8, code:"hurd1", subject:"Urdu", medium:"Hindi", title:"NCERT Apni Zuban – Urdu Textbook Class 8", price:329},
+
+ // CLASS 9
+ {cls:9, code:"iebe1", subject:"English", medium:"English", title:"NCERT Beehive – English Textbook for Class 9", price:399},
+ {cls:9, code:"iemo1", subject:"English", medium:"English", title:"NCERT Moments – Supplementary Reader Class 9", price:359},
+ {cls:9, code:"ihks1", subject:"Hindi", medium:"Hindi", title:"NCERT Kshitij Bhag 1 (क्षितिज भाग-1) – Class 9", price:389},
+ {cls:9, code:"ihkr1", subject:"Hindi", medium:"Hindi", title:"NCERT Kritika Bhag 1 (कृतिका भाग-1) – Class 9", price:349},
+ {cls:9, code:"ihsp1", subject:"Hindi", medium:"Hindi", title:"NCERT Sparsh Bhag 1 (स्पर्श भाग-1) – Class 9", price:379},
+ {cls:9, code:"ihsa1", subject:"Hindi", medium:"Hindi", title:"NCERT Sanchayan Bhag 1 (संचयन भाग-1) – Class 9", price:349},
+ {cls:9, code:"iemh1", subject:"Mathematics", medium:"English", title:"NCERT Mathematics – Textbook for Class 9", price:479},
+ {cls:9, code:"ihmh1", subject:"Mathematics", medium:"Hindi", title:"NCERT Ganit (गणित) – Textbook for Class 9", price:479},
+ {cls:9, code:"iesc1", subject:"Science", medium:"English", title:"NCERT Science – Textbook for Class 9", price:489},
+ {cls:9, code:"ihsc1", subject:"Science", medium:"Hindi", title:"NCERT Vigyan (विज्ञान) – Textbook for Class 9", price:489},
+ {cls:9, code:"iess3", subject:"Social Science", medium:"English", title:"NCERT India and the Contemporary World I (History) – Class 9", price:429},
+ {cls:9, code:"iess1", subject:"Social Science", medium:"English", title:"NCERT Contemporary India I (Geography) – Class 9", price:409},
+ {cls:9, code:"iess4", subject:"Social Science", medium:"English", title:"NCERT Democratic Politics I (Civics) – Class 9", price:409},
+ {cls:9, code:"iess2", subject:"Social Science", medium:"English", title:"NCERT Economics – Textbook for Class 9", price:399},
+ {cls:9, code:"ihss3", subject:"Social Science", medium:"Hindi", title:"NCERT Bharat Aur Samkalin Vishwa I (इतिहास) – Class 9", price:429},
+ {cls:9, code:"ihss1", subject:"Social Science", medium:"Hindi", title:"NCERT Samkalin Bharat I (भूगोल) – Class 9", price:409},
+ {cls:9, code:"ihss4", subject:"Social Science", medium:"Hindi", title:"NCERT Loktantrik Rajniti I (राजनीति) – Class 9", price:409},
+ {cls:9, code:"ihss2", subject:"Social Science", medium:"Hindi", title:"NCERT Arthashastra (अर्थशास्त्र) – Class 9", price:399},
+ {cls:9, code:"iskw1", subject:"Sanskrit", medium:"Hindi", title:"NCERT Shemushi Prathamo Bhagah (शेमुषी) – Class 9", price:379},
+ {cls:9, code:"iurd1", subject:"Urdu", medium:"Hindi", title:"NCERT Nawa-e-Urdu – Class 9", price:379},
+
+ // CLASS 10
+ {cls:10, code:"jeff1", subject:"English", medium:"English", title:"NCERT First Flight – English Textbook for Class 10", price:429},
+ {cls:10, code:"jefp1", subject:"English", medium:"English", title:"NCERT Footprints Without Feet – Supplementary Class 10", price:389},
+ {cls:10, code:"jhks1", subject:"Hindi", medium:"Hindi", title:"NCERT Kshitij Bhag 2 (क्षितिज भाग-2) – Class 10", price:419},
+ {cls:10, code:"jhkr1", subject:"Hindi", medium:"Hindi", title:"NCERT Kritika Bhag 2 (कृतिका भाग-2) – Class 10", price:379},
+ {cls:10, code:"jhsp1", subject:"Hindi", medium:"Hindi", title:"NCERT Sparsh Bhag 2 (स्पर्श भाग-2) – Class 10", price:409},
+ {cls:10, code:"jhsa1", subject:"Hindi", medium:"Hindi", title:"NCERT Sanchayan Bhag 2 (संचयन भाग-2) – Class 10", price:379},
+ {cls:10, code:"jemh1", subject:"Mathematics", medium:"English", title:"NCERT Mathematics – Textbook for Class 10", price:549},
+ {cls:10, code:"jhmh1", subject:"Mathematics", medium:"Hindi", title:"NCERT Ganit (गणित) – Textbook for Class 10", price:549},
+ {cls:10, code:"jesc1", subject:"Science", medium:"English", title:"NCERT Science – Textbook for Class 10", price:569},
+ {cls:10, code:"jhsc1", subject:"Science", medium:"Hindi", title:"NCERT Vigyan (विज्ञान) – Textbook for Class 10", price:569},
+ {cls:10, code:"jess3", subject:"Social Science", medium:"English", title:"NCERT India and the Contemporary World II (History) – Class 10", price:469},
+ {cls:10, code:"jess1", subject:"Social Science", medium:"English", title:"NCERT Contemporary India II (Geography) – Class 10", price:449},
+ {cls:10, code:"jess4", subject:"Social Science", medium:"English", title:"NCERT Democratic Politics II (Civics) – Class 10", price:449},
+ {cls:10, code:"jess2", subject:"Social Science", medium:"English", title:"NCERT Understanding Economic Development – Class 10", price:439},
+ {cls:10, code:"jhss3", subject:"Social Science", medium:"Hindi", title:"NCERT Bharat Aur Samkalin Vishwa II (इतिहास) – Class 10", price:469},
+ {cls:10, code:"jhss1", subject:"Social Science", medium:"Hindi", title:"NCERT Samkalin Bharat II (भूगोल) – Class 10", price:449},
+ {cls:10, code:"jhss4", subject:"Social Science", medium:"Hindi", title:"NCERT Loktantrik Rajniti II (राजनीति) – Class 10", price:449},
+ {cls:10, code:"jhss2", subject:"Social Science", medium:"Hindi", title:"NCERT Arthik Vikas Ki Samajh (अर्थशास्त्र) – Class 10", price:439},
+ {cls:10, code:"jskw1", subject:"Sanskrit", medium:"Hindi", title:"NCERT Shemushi Dwitiyo Bhagah (शेमुषी भाग-2) – Class 10", price:399},
+ {cls:10, code:"jurd1", subject:"Urdu", medium:"Hindi", title:"NCERT Nawa-e-Urdu – Class 10", price:399},
+
+ // CLASS 11 (SCIENCE, COMMERCE, ARTS/HUMANITIES)
+ {cls:11, code:"kehb1", subject:"English", medium:"English", title:"NCERT Hornbill – English Core Textbook Class 11", price:499},
+ {cls:11, code:"kesp1", subject:"English", medium:"English", title:"NCERT Snapshots – Supplementary Reader Class 11", price:459},
+ {cls:11, code:"khar1", subject:"Hindi", medium:"Hindi", title:"NCERT Aroh Bhag 1 (आरोह भाग-1) – Class 11", price:489},
+ {cls:11, code:"khvt1", subject:"Hindi", medium:"Hindi", title:"NCERT Vitan Bhag 1 (वितान भाग-1) – Class 11", price:449},
+ {cls:11, code:"keph1", subject:"Physics", medium:"English", title:"NCERT Physics Part 1 – Textbook for Class 11", price:599},
+ {cls:11, code:"keph2", subject:"Physics", medium:"English", title:"NCERT Physics Part 2 – Textbook for Class 11", price:589},
+ {cls:11, code:"khph1", subject:"Physics", medium:"Hindi", title:"NCERT Bhautiki Bhag 1 (भौतिकी भाग-1) – Class 11", price:599},
+ {cls:11, code:"khph2", subject:"Physics", medium:"Hindi", title:"NCERT Bhautiki Bhag 2 (भौतिकी भाग-2) – Class 11", price:589},
+ {cls:11, code:"kech1", subject:"Chemistry", medium:"English", title:"NCERT Chemistry Part 1 – Textbook for Class 11", price:599},
+ {cls:11, code:"kech2", subject:"Chemistry", medium:"English", title:"NCERT Chemistry Part 2 – Textbook for Class 11", price:579},
+ {cls:11, code:"khch1", subject:"Chemistry", medium:"Hindi", title:"NCERT Rasayan Vigyan Bhag 1 (रसायन विज्ञान) – Class 11", price:599},
+ {cls:11, code:"khch2", subject:"Chemistry", medium:"Hindi", title:"NCERT Rasayan Vigyan Bhag 2 (रसायन विज्ञान) – Class 11", price:579},
+ {cls:11, code:"kemh1", subject:"Mathematics", medium:"English", title:"NCERT Mathematics – Textbook for Class 11", price:649},
+ {cls:11, code:"khmh1", subject:"Mathematics", medium:"Hindi", title:"NCERT Ganit (गणित) – Textbook for Class 11", price:649},
+ {cls:11, code:"kebo1", subject:"Biology", medium:"English", title:"NCERT Biology – Textbook for Class 11", price:679},
+ {cls:11, code:"khbo1", subject:"Biology", medium:"Hindi", title:"NCERT Jeev Vigyan (जीव विज्ञान) – Class 11", price:679},
+ {cls:11, code:"keac1", subject:"Accountancy", medium:"English", title:"NCERT Financial Accounting Part 1 – Class 11", price:569},
+ {cls:11, code:"keac2", subject:"Accountancy", medium:"English", title:"NCERT Financial Accounting Part 2 – Class 11", price:549},
+ {cls:11, code:"khac1", subject:"Accountancy", medium:"Hindi", title:"NCERT Lekhashastra Bhag 1 & 2 (लेखाशास्त्र) – Class 11", price:599},
+ {cls:11, code:"kebs1", subject:"Business Studies", medium:"English", title:"NCERT Business Studies – Textbook for Class 11", price:559},
+ {cls:11, code:"khbs1", subject:"Business Studies", medium:"Hindi", title:"NCERT Vyavsay Adhyayan (व्यवसाय अध्ययन) – Class 11", price:559},
+ {cls:11, code:"keec1", subject:"Economics", medium:"English", title:"NCERT Indian Economic Development – Class 11", price:529},
+ {cls:11, code:"keec2", subject:"Economics", medium:"English", title:"NCERT Statistics for Economics – Class 11", price:519},
+ {cls:11, code:"khec1", subject:"Economics", medium:"Hindi", title:"NCERT Bharatiya Arthvyavastha Ka Vikas – Class 11", price:529},
+ {cls:11, code:"khec2", subject:"Economics", medium:"Hindi", title:"NCERT Arthashastra Mein Sankhyiki – Class 11", price:519},
+ {cls:11, code:"kehi1", subject:"History", medium:"English", title:"NCERT Themes in World History – Class 11", price:579},
+ {cls:11, code:"khhi1", subject:"History", medium:"Hindi", title:"NCERT Vishwa Itihas Ke Kuch Vishay – Class 11", price:579},
+ {cls:11, code:"kegy2", subject:"Geography", medium:"English", title:"NCERT Fundamentals of Physical Geography – Class 11", price:549},
+ {cls:11, code:"kegy1", subject:"Geography", medium:"English", title:"NCERT India: Physical Environment – Class 11", price:529},
+ {cls:11, code:"khgy2", subject:"Geography", medium:"Hindi", title:"NCERT Bhautik Bhugol Ke Mool Siddhant – Class 11", price:549},
+ {cls:11, code:"khgy1", subject:"Geography", medium:"Hindi", title:"NCERT Bharat: Bhautik Paryavaran – Class 11", price:529},
+ {cls:11, code:"keps2", subject:"Political Science", medium:"English", title:"NCERT Indian Constitution at Work – Class 11", price:539},
+ {cls:11, code:"keps1", subject:"Political Science", medium:"English", title:"NCERT Political Theory – Class 11", price:519},
+ {cls:11, code:"khps2", subject:"Political Science", medium:"Hindi", title:"NCERT Bharat Ka Samvidhan: Siddhant Aur Vyavahar – Class 11", price:539},
+ {cls:11, code:"khps1", subject:"Political Science", medium:"Hindi", title:"NCERT Rajnitik Siddhant – Class 11", price:519},
+ {cls:11, code:"kesy1", subject:"Sociology", medium:"English", title:"NCERT Introducing Sociology & Understanding Society – Class 11", price:549},
+ {cls:11, code:"khsy1", subject:"Sociology", medium:"Hindi", title:"NCERT Samajshastra Parichay & Samaj Ka Bodh – Class 11", price:549},
+ {cls:11, code:"kepy1", subject:"Psychology", medium:"English", title:"NCERT Psychology – Textbook for Class 11", price:559},
+ {cls:11, code:"khpy1", subject:"Psychology", medium:"Hindi", title:"NCERT Manovigyan (मनोविज्ञान) – Class 11", price:559},
+ {cls:11, code:"kecs1", subject:"Computer Science", medium:"English", title:"NCERT Computer Science with Python – Class 11", price:629},
+ {cls:11, code:"keip1", subject:"Informatics Practices", medium:"English", title:"NCERT Informatics Practices – Class 11", price:599},
+
+ // CLASS 12 (SCIENCE, COMMERCE, ARTS/HUMANITIES)
+ {cls:12, code:"lefl1", subject:"English", medium:"English", title:"NCERT Flamingo – English Core Textbook Class 12", price:529},
+ {cls:12, code:"levt1", subject:"English", medium:"English", title:"NCERT Vistas – Supplementary Reader Class 12", price:489},
+ {cls:12, code:"lhar1", subject:"Hindi", medium:"Hindi", title:"NCERT Aroh Bhag 2 (आरोह भाग-2) – Class 12", price:519},
+ {cls:12, code:"lhvt1", subject:"Hindi", medium:"Hindi", title:"NCERT Vitan Bhag 2 (वितान भाग-2) – Class 12", price:479},
+ {cls:12, code:"leph1", subject:"Physics", medium:"English", title:"NCERT Physics Part 1 – Textbook for Class 12", price:699},
+ {cls:12, code:"leph2", subject:"Physics", medium:"English", title:"NCERT Physics Part 2 – Textbook for Class 12", price:689},
+ {cls:12, code:"lhph1", subject:"Physics", medium:"Hindi", title:"NCERT Bhautiki Bhag 1 (भौतिकी भाग-1) – Class 12", price:699},
+ {cls:12, code:"lhph2", subject:"Physics", medium:"Hindi", title:"NCERT Bhautiki Bhag 2 (भौतिकी भाग-2) – Class 12", price:689},
+ {cls:12, code:"lech1", subject:"Chemistry", medium:"English", title:"NCERT Chemistry Part 1 – Textbook for Class 12", price:689},
+ {cls:12, code:"lech2", subject:"Chemistry", medium:"English", title:"NCERT Chemistry Part 2 – Textbook for Class 12", price:679},
+ {cls:12, code:"lhch1", subject:"Chemistry", medium:"Hindi", title:"NCERT Rasayan Vigyan Bhag 1 (रसायन विज्ञान) – Class 12", price:689},
+ {cls:12, code:"lhch2", subject:"Chemistry", medium:"Hindi", title:"NCERT Rasayan Vigyan Bhag 2 (रसायन विज्ञान) – Class 12", price:679},
+ {cls:12, code:"lemh1", subject:"Mathematics", medium:"English", title:"NCERT Mathematics Part 1 – Textbook for Class 12", price:699},
+ {cls:12, code:"lemh2", subject:"Mathematics", medium:"English", title:"NCERT Mathematics Part 2 – Textbook for Class 12", price:729},
+ {cls:12, code:"lhmh1", subject:"Mathematics", medium:"Hindi", title:"NCERT Ganit Bhag 1 (गणित भाग-1) – Class 12", price:699},
+ {cls:12, code:"lhmh2", subject:"Mathematics", medium:"Hindi", title:"NCERT Ganit Bhag 2 (गणित भाग-2) – Class 12", price:729},
+ {cls:12, code:"lebo1", subject:"Biology", medium:"English", title:"NCERT Biology – Textbook for Class 12", price:799},
+ {cls:12, code:"lhbo1", subject:"Biology", medium:"Hindi", title:"NCERT Jeev Vigyan (जीव विज्ञान) – Class 12", price:799},
+ {cls:12, code:"leac1", subject:"Accountancy", medium:"English", title:"NCERT Accountancy Part 1 (Partnership) – Class 12", price:629},
+ {cls:12, code:"leac2", subject:"Accountancy", medium:"English", title:"NCERT Accountancy Part 2 (Company Accounts) – Class 12", price:619},
+ {cls:12, code:"lhac1", subject:"Accountancy", medium:"Hindi", title:"NCERT Lekhashastra Bhag 1 & 2 (लेखाशास्त्र) – Class 12", price:649},
+ {cls:12, code:"lebs1", subject:"Business Studies", medium:"English", title:"NCERT Business Studies Part 1 – Class 12", price:579},
+ {cls:12, code:"lebs2", subject:"Business Studies", medium:"English", title:"NCERT Business Studies Part 2 – Class 12", price:569},
+ {cls:12, code:"lhbs1", subject:"Business Studies", medium:"Hindi", title:"NCERT Vyavsay Adhyayan Bhag 1 & 2 – Class 12", price:599},
+ {cls:12, code:"leec2", subject:"Economics", medium:"English", title:"NCERT Introductory Microeconomics – Class 12", price:559},
+ {cls:12, code:"leec1", subject:"Economics", medium:"English", title:"NCERT Introductory Macroeconomics – Class 12", price:569},
+ {cls:12, code:"lhec2", subject:"Economics", medium:"Hindi", title:"NCERT Vyashti Arthashastra (व्यष्टि अर्थशास्त्र) – Class 12", price:559},
+ {cls:12, code:"lhec1", subject:"Economics", medium:"Hindi", title:"NCERT Samashti Arthashastra (समष्टि अर्थशास्त्र) – Class 12", price:569},
+ {cls:12, code:"lehs1", subject:"History", medium:"English", title:"NCERT Themes in Indian History Part 1 – Class 12", price:569},
+ {cls:12, code:"lehs2", subject:"History", medium:"English", title:"NCERT Themes in Indian History Part 2 – Class 12", price:579},
+ {cls:12, code:"lehs3", subject:"History", medium:"English", title:"NCERT Themes in Indian History Part 3 – Class 12", price:589},
+ {cls:12, code:"lhhs1", subject:"History", medium:"Hindi", title:"NCERT Bharatiya Itihas Ke Kuch Vishay Bhag 1, 2 & 3 – Class 12", price:649},
+ {cls:12, code:"legy1", subject:"Geography", medium:"English", title:"NCERT Fundamentals of Human Geography – Class 12", price:559},
+ {cls:12, code:"legy2", subject:"Geography", medium:"English", title:"NCERT India: People and Economy – Class 12", price:569},
+ {cls:12, code:"lhgy1", subject:"Geography", medium:"Hindi", title:"NCERT Manav Bhugol Ke Mool Siddhant – Class 12", price:559},
+ {cls:12, code:"lhgy2", subject:"Geography", medium:"Hindi", title:"NCERT Bharat: Log Aur Arthvyavastha – Class 12", price:569},
+ {cls:12, code:"leps1", subject:"Political Science", medium:"English", title:"NCERT Contemporary World Politics – Class 12", price:559},
+ {cls:12, code:"leps2", subject:"Political Science", medium:"English", title:"NCERT Politics in India Since Independence – Class 12", price:569},
+ {cls:12, code:"lhps1", subject:"Political Science", medium:"Hindi", title:"NCERT Samkalin Vishwa Rajniti – Class 12", price:559},
+ {cls:12, code:"lhps2", subject:"Political Science", medium:"Hindi", title:"NCERT Swatantra Bharat Mein Rajniti – Class 12", price:569},
+ {cls:12, code:"lesy1", subject:"Sociology", medium:"English", title:"NCERT Indian Society & Social Change in India – Class 12", price:589},
+ {cls:12, code:"lhsy1", subject:"Sociology", medium:"Hindi", title:"NCERT Bharatiya Samaj & Samajik Parivartan – Class 12", price:589},
+ {cls:12, code:"lepy1", subject:"Psychology", medium:"English", title:"NCERT Psychology – Textbook for Class 12", price:599},
+ {cls:12, code:"lhpy1", subject:"Psychology", medium:"Hindi", title:"NCERT Manovigyan (मनोविज्ञान) – Class 12", price:599},
+ {cls:12, code:"lecs1", subject:"Computer Science", medium:"English", title:"NCERT Computer Science – Textbook for Class 12", price:669},
+ {cls:12, code:"leip1", subject:"Informatics Practices", medium:"English", title:"NCERT Informatics Practices – Textbook for Class 12", price:639}
+];
+
+// Subject color themes & emblems for high-resolution HTML5 Canvas textbook cover fallback rendering
+const subjectThemes = {
+ "Mathematics": {bg1:"#0b3a82", bg2:"#1d63dc", accent:"#f2a900", icon:"📐"},
+ "Science": {bg1:"#0f5132", bg2:"#198754", accent:"#fde047", icon:"🔬"},
+ "Physics": {bg1:"#1e1b4b", bg2:"#4338ca", accent:"#38bdf8", icon:"⚛️"},
+ "Chemistry": {bg1:"#581c87", bg2:"#9333ea", accent:"#f472b6", icon:"🧪"},
+ "Biology": {bg1:"#064e3b", bg2:"#059669", accent:"#a3e635", icon:"🧬"},
+ "English": {bg1:"#7c2d12", bg2:"#ea580c", accent:"#fde68a", icon:"📘"},
+ "Hindi": {bg1:"#881337", bg2:"#e11d48", accent:"#fecdd3", icon:"📕"},
+ "Sanskrit": {bg1:"#78350f", bg2:"#d97706", accent:"#fef08a", icon:"🕉️"},
+ "Urdu": {bg1:"#1e3a5f", bg2:"#2563eb", accent:"#bae6fd", icon:"📗"},
+ "Environmental Studies": {bg1:"#14532d", bg2:"#22c55e", accent:"#bbf7d0", icon:"🌱"},
+ "Social Science": {bg1:"#1e3a8a", bg2:"#0284c7", accent:"#f2a900", icon:"🌍"},
+ "History": {bg1:"#713f12", bg2:"#ca8a04", accent:"#fef9c3", icon:"🏛️"},
+ "Geography": {bg1:"#065f46", bg2:"#0d9488", accent:"#99f6e4", icon:"🗺️"},
+ "Political Science": {bg1:"#312e81", bg2:"#4f46e5", accent:"#c7d2fe", icon:"⚖️"},
+ "Economics": {bg1:"#134e4a", bg2:"#0f766e", accent:"#99f6e4", icon:"📊"},
+ "Accountancy": {bg1:"#1f2937", bg2:"#4b5563", accent:"#fbbf24", icon:"📒"},
+ "Business Studies": {bg1:"#3b0764", bg2:"#7e22ce", accent:"#e9d5ff", icon:"💼"},
+ "Sociology": {bg1:"#831843", bg2:"#db2777", accent:"#fbcfe8", icon:"👥"},
+ "Psychology": {bg1:"#4c1d95", bg2:"#8b5cf6", accent:"#ddd6fe", icon:"🧠"},
+ "Computer Science": {bg1:"#0f172a", bg2:"#0284c7", accent:"#38bdf8", icon:"💻"},
+ "Informatics Practices": {bg1:"#1e293b", bg2:"#2563eb", accent:"#93c5fd", icon:"🖥️"}
+};
+
+function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 3) {
+ const words = String(text).split(" ");
+ let line = "";
+ let lineCount = 0;
+ for (let i = 0; i < words.length; i++) {
+  const testLine = line ? line + " " + words[i] : words[i];
+  if (ctx.measureText(testLine).width > maxWidth && line) {
+   ctx.fillText(line, x, y);
+   y += lineHeight;
+   line = words[i];
+   lineCount++;
+   if (lineCount >= maxLines - 1) break;
+  } else {
+   line = testLine;
+  }
+ }
+ if (line && lineCount < maxLines) {
+  ctx.fillText(line, x, y);
+ }
+}
+
+// Renders a crisp visual NCERT book cover image via HTML5 Canvas data URL
+function generateCanvasCoverDataURL(item) {
+ try {
+  const canvas = document.createElement("canvas");
+  canvas.width = 320;
+  canvas.height = 420;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return "";
+
+  const theme = subjectThemes[item.subject] || {bg1:"#092b68", bg2:"#124a9c", accent:"#f2a900", icon:"📖"};
+
+  // Cover background gradient
+  const grad = ctx.createLinearGradient(0, 0, 320, 420);
+  grad.addColorStop(0, theme.bg1);
+  grad.addColorStop(1, theme.bg2);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 320, 420);
+
+  // Left book spine shading & crease
+  const spineGrad = ctx.createLinearGradient(0, 0, 26, 0);
+  spineGrad.addColorStop(0, "rgba(0,0,0,0.42)");
+  spineGrad.addColorStop(0.65, "rgba(255,255,255,0.12)");
+  spineGrad.addColorStop(1, "rgba(0,0,0,0.22)");
+  ctx.fillStyle = spineGrad;
+  ctx.fillRect(0, 0, 26, 420);
+
+  // Outer border frame
+  ctx.strokeStyle = "rgba(255,255,255,0.35)";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(36, 16, 266, 388);
+
+  // Top NCERT header banner
+  ctx.fillStyle = "#f2a900";
+  ctx.fillRect(46, 26, 246, 34);
+  ctx.fillStyle = "#111827";
+  ctx.font = "bold 13px Arial, sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText(`NCERT TEXTBOOK • CLASS ${item.cls}`, 169, 48);
+
+  // Subject & Medium pill text
+  ctx.fillStyle = theme.accent;
+  ctx.font = "bold 14px Arial, sans-serif";
+  ctx.fillText(`${item.subject.toUpperCase()} (${item.medium})`, 169, 92);
+
+  // Center circular emblem
+  ctx.fillStyle = "rgba(255,255,255,0.14)";
+  ctx.beginPath();
+  ctx.arc(169, 152, 44, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.font = "44px Arial, sans-serif";
+  ctx.fillText(theme.icon, 169, 167);
+
+  // Book title
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "bold 17px Arial, sans-serif";
+  const cleanTitle = item.title.replace(/^NCERT\s+/i, "");
+  wrapCanvasText(ctx, cleanTitle, 169, 232, 236, 24, 3);
+
+  // Price tag badge on cover
+  ctx.fillStyle = "rgba(0,0,0,0.32)";
+  ctx.fillRect(96, 316, 146, 30);
+  ctx.fillStyle = "#ffd16b";
+  ctx.font = "bold 15px Arial, sans-serif";
+  ctx.fillText(`Price: ₹${item.price}`, 169, 336);
+
+  // Bottom publisher line
+  ctx.fillStyle = "#e2e8f0";
+  ctx.font = "bold 11px Arial, sans-serif";
+  ctx.fillText("SMARTSHIKSHA • NATIONAL COUNCIL OF EDUCATIONAL RESEARCH", 169, 386);
+
+  return canvas.toDataURL("image/png");
+ } catch (err) {
+  return "";
+ }
+}
+
+// Build complete book list with custom uploaded cover priority + automatic Canvas cover fallback
+const books = rawNCERTCatalog.map((item, idx) => {
+ const validPrice = Math.min(799, Math.max(99, Number(item.price) || 199));
+ const canvasCover = generateCanvasCoverDataURL({...item, price: validPrice});
+ return {
+  id: idx + 1,
+  cls: item.cls,
+  code: item.code,
+  subject: item.subject,
+  medium: item.medium,
+  title: item.title,
+  price: validPrice,
+  mrp: Math.min(899, Math.round(validPrice * 1.25)),
+  customCover: item.customCover || "",
+  canvasCover: canvasCover
+ };
+});
+
+let cart = JSON.parse(localStorage.getItem("ss_cart") || "[]");
+let resources = JSON.parse(localStorage.getItem("ss_resources") || "[]");
+
+function saveCart() {
+ localStorage.setItem("ss_cart", JSON.stringify(cart));
+}
+
+function showMsg(text) {
+ const t = document.getElementById("toast");
+ t.textContent = text;
+ t.classList.add("show");
+ clearTimeout(window._toastTimer);
+ window._toastTimer = setTimeout(() => t.classList.remove("show"), 3200);
+}
+
+function toggleMenu() {
+ document.getElementById("menu").classList.toggle("open");
+}
+
+function openModal(id) {
+ document.getElementById(id).classList.add("show");
+}
+
+function closeModal(id) {
+ document.getElementById(id).classList.remove("show");
+}
+
+function populateSelects() {
+ const uniqueSubjects = [...new Set(books.map(b => b.subject))].sort();
+ const subSel = document.getElementById("filterSubject");
+ uniqueSubjects.forEach(sub => {
+  const opt = document.createElement("option");
+  opt.value = sub;
+  opt.textContent = sub;
+  subSel.appendChild(opt);
+ });
+
+ ["doubtClassSelect", "regClassSelect"].forEach(id => {
+  const sel = document.getElementById(id);
+  if (!sel) return;
+  for (let i = 1; i <= 12; i++) {
+   const opt = document.createElement("option");
+   opt.value = `Class ${i}`;
+   opt.textContent = `Class ${i}`;
+   sel.appendChild(opt);
+  }
+ });
+}
+
+function renderClasses() {
+ document.getElementById("classGrid").innerHTML = classes.map(n =>
+  `<div class="card class-card" onclick="showClass(${n})">📘<br>Class ${n}</div>`
+ ).join("");
+ document.getElementById("quizGrid").innerHTML = classes.map(n =>
+  `<button class="card class-card" onclick="startQuiz(${n})">📝<br>Class ${n} Quiz</button>`
+ ).join("");
+}
+
+function showClass(n) {
+ const sec = document.getElementById("chapters");
+ sec.classList.remove("hidden");
+ document.getElementById("chapterHeading").textContent = `Class ${n} — Select Subject`;
+ document.getElementById("chapterPanel").classList.add("hidden");
+ document.getElementById("subjectGrid").innerHTML = (subjectsByClass[n] || ["English","Hindi","Mathematics","Science"]).map(s =>
+  `<div class="card subject" onclick="showChapters(${n},'${s.replace(/'/g,"\\'")}')">📚 ${escapeHTML(s)}</div>`
+ ).join("");
+ sec.scrollIntoView({behavior:"smooth"});
+}
+
+function showChapters(n, s) {
+ document.getElementById("chapterPanel").classList.remove("hidden");
+ document.getElementById("subjectHeading").textContent = `Class ${n} • ${s}`;
+ document.getElementById("chapterGrid").innerHTML = Array.from({length:10}, (_,i) =>
+  `<div class="card chapter" onclick="showResources(${n},'${s.replace(/'/g,"\\'")}',${i+1})">Chapter ${i+1}<br><small class="muted">Notes • Test • Questions</small></div>`
+ ).join("");
+ document.getElementById("chapterPanel").scrollIntoView({behavior:"smooth"});
+}
+
+function showResources(n, s, c) {
+ const found = resources.filter(r => r.cls == n && r.subject.toLowerCase() === s.toLowerCase() && r.chapter == c);
+ ["notesList", "practiceList", "importantList"].forEach((id, i) => {
+  const type = ["Notes PDF", "Practice Test", "Important Questions PDF"][i];
+  const items = found.filter(r => r.type === type);
+  document.getElementById(id).innerHTML = `<b>Class ${n} / ${escapeHTML(s)} / Chapter ${c}</b>` + (
+   items.length
+    ? items.map(r => `<div class="list-item">${escapeHTML(r.title)} <a href="${r.data}" target="_blank" rel="noopener">Open</a></div>`).join("")
+    : `<div class="list-item">Sample ${type} ready for Class ${n} ${escapeHTML(s)} Chapter ${c}.</div>`
+  );
+ });
+ showMsg(`Loaded resources for Class ${n} ${s} Chapter ${c}`);
+}
+
+function applyBookFilters() {
+ const clsVal = document.getElementById("filterClass").value;
+ const medVal = document.getElementById("filterMedium").value;
+ const subVal = document.getElementById("filterSubject").value;
+ const kwVal = document.getElementById("filterKeyword").value.trim().toLowerCase();
+
+ const filtered = books.filter(b => {
+  if (clsVal !== "all" && String(b.cls) !== clsVal) return false;
+  if (medVal !== "all" && b.medium !== medVal) return false;
+  if (subVal !== "all" && b.subject !== subVal) return false;
+  if (kwVal && !(b.title + " " + b.subject + " class " + b.cls + " " + b.medium).toLowerCase().includes(kwVal)) return false;
+  return true;
+ });
+
+ document.getElementById("bookCountLabel").innerHTML = `Showing <b>${filtered.length}</b> of <b>${books.length}</b> NCERT Textbooks (Class 1–12)`;
+ renderBooksGrid(filtered);
+}
+
+function resetBookFilters() {
+ document.getElementById("filterClass").value = "all";
+ document.getElementById("filterMedium").value = "all";
+ document.getElementById("filterSubject").value = "all";
+ document.getElementById("filterKeyword").value = "";
+ document.getElementById("bookSearch").value = "";
+ applyBookFilters();
+}
+
+function searchBooks() {
+ const q = document.getElementById("bookSearch").value;
+ document.getElementById("filterKeyword").value = q;
+ applyBookFilters();
+ document.getElementById("books").scrollIntoView({behavior:"smooth"});
+}
+
+function renderBooksGrid(list) {
+ const grid = document.getElementById("bookGrid");
+ if (!list.length) {
+  grid.innerHTML = `<div class="card" style="grid-column:1/-1;text-align:center">No matching NCERT books found. Try resetting filters.</div>`;
+  return;
+ }
+
+ grid.innerHTML = list.map(b => {
+  const inCart = cart.find(item => item.id === b.id);
+  const discount = Math.round(((b.mrp - b.price) / b.mrp) * 100);
+  // Uses the exact user-uploaded local cover file if available, falling back automatically to the Canvas cover
+  const primaryImg = b.customCover ? b.customCover : b.canvasCover;
+  const fallbackImg = b.canvasCover;
+  const actionHTML = inCart
+   ? `<div class="qty-box">
+       <button type="button" onclick="changeQty(${b.id}, -1)">−</button>
+       <span>${inCart.qty} in Cart</span>
+       <button type="button" onclick="changeQty(${b.id}, 1)">+</button>
+      </div>`
+   : `<button type="button" class="btn" onclick="addToCart(${b.id})">🛒 Add to Cart</button>`;
+
+  return `<div class="card book">
+   <div>
+    <div class="book-img-wrap">
+     <span class="book-cls-badge">Class ${b.cls}</span>
+     <span class="book-med-badge">${escapeHTML(b.medium)}</span>
+     <img src="${escapeHTML(primaryImg)}" data-fallback="${escapeHTML(fallbackImg)}" onerror="if(this.dataset.fallback && this.src!==this.dataset.fallback){this.src=this.dataset.fallback;}" alt="${escapeHTML(b.title)}" loading="lazy">
+    </div>
+    <h3>${escapeHTML(b.title)}</h3>
+    <p class="book-sub">${escapeHTML(b.subject)} • Official NCERT</p>
+   </div>
+   <div>
+    <div class="price-row">
+     <span class="price-now">₹${b.price}</span>
+     <span class="price-mrp">₹${b.mrp}</span>
+     <span class="price-off">${discount}% OFF</span>
+    </div>
+    <div class="book-actions">
+     ${actionHTML}
+     <button type="button" class="btn gold" onclick="buyNow(${b.id})">Buy Now</button>
+    </div>
+   </div>
+  </div>`;
+ }).join("");
+}
+
+function addToCart(bookId) {
+ const book = books.find(b => b.id === bookId);
+ if (!book) return;
+ const existing = cart.find(i => i.id === bookId);
+ if (existing) {
+  existing.qty += 1;
+ } else {
+  cart.push({id: book.id, title: book.title, cls: book.cls, medium: book.medium, price: book.price, qty: 1});
+ }
+ saveCart();
+ updateCartUI();
+ applyBookFilters();
+ showMsg(`Added "${book.title}" (₹${book.price}) to Cart!`);
+}
+
+function buyNow(bookId) {
+ const existing = cart.find(i => i.id === bookId);
+ if (!existing) {
+  addToCart(bookId);
+ }
+ document.getElementById("payments").scrollIntoView({behavior:"smooth"});
+}
+
+function changeQty(bookId, delta) {
+ const idx = cart.findIndex(i => i.id === bookId);
+ if (idx === -1) return;
+ cart[idx].qty += delta;
+ if (cart[idx].qty <= 0) {
+  cart.splice(idx, 1);
+ }
+ saveCart();
+ updateCartUI();
+ applyBookFilters();
+}
+
+function removeFromCart(bookId) {
+ cart = cart.filter(i => i.id !== bookId);
+ saveCart();
+ updateCartUI();
+ applyBookFilters();
+ showMsg("Book removed from cart.");
+}
+
+function clearCart() {
+ if (!cart.length) return;
+ cart = [];
+ saveCart();
+ updateCartUI();
+ applyBookFilters();
+ showMsg("Shopping cart cleared.");
+}
+
+function updateCartUI() {
+ const totalItems = cart.reduce((sum, i) => sum + i.qty, 0);
+ const subtotal = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+ const grandTotal = subtotal;
+
+ document.getElementById("headerCartCount").textContent = totalItems;
+ document.getElementById("cartItemCount").textContent = totalItems;
+ document.getElementById("metaCartTotal").textContent = grandTotal;
+ document.getElementById("billSubtotal").textContent = subtotal;
+ document.getElementById("billGrandTotal").textContent = grandTotal;
+
+ // Auto-update Payment Form Amount & UPI Amount Display (No QR Code)
+ document.getElementById("payAmountInput").value = grandTotal;
+ document.getElementById("payBtnAmount").textContent = grandTotal;
+ document.getElementById("upiPayAmt").textContent = grandTotal;
+ document.getElementById("payBooksSummary").value = totalItems
+  ? cart.map(i => `${i.title} (x${i.qty})`).join(", ")
+  : "No books added yet";
+
+ const container = document.getElementById("cartItemsContainer");
+ if (!cart.length) {
+  container.innerHTML = `<div class="notice">Your cart is empty. Click <b>Add to Cart</b> on any NCERT book above to add it here.</div>`;
+  return;
+ }
+
+ container.innerHTML = cart.map(item => `
+  <div class="cart-row">
+   <div class="cart-row-info">
+    <div class="cart-row-title" title="${escapeHTML(item.title)}">${escapeHTML(item.title)}</div>
+    <div class="cart-row-sub">Class ${item.cls} • ${escapeHTML(item.medium)} • ₹${item.price} each</div>
+   </div>
+   <div class="cart-row-ctrl">
+    <button type="button" onclick="changeQty(${item.id}, -1)">−</button>
+    <b style="min-width:20px;text-align:center">${item.qty}</b>
+    <button type="button" onclick="changeQty(${item.id}, 1)">+</button>
+    <b style="min-width:58px;text-align:right;color:var(--navy)">₹${item.price * item.qty}</b>
+    <button type="button" class="del" onclick="removeFromCart(${item.id})" title="Remove">✕</button>
+   </div>
+  </div>
+ `).join("");
+}
+
+function togglePayDetails() {
+ const method = document.querySelector('input[name="payMethod"]:checked')?.value || "";
+ document.getElementById("upiBox").classList.toggle("hidden", !method.includes("UPI"));
+ document.getElementById("cardBox").classList.toggle("hidden", !method.includes("Card"));
+ document.getElementById("netBankingBox").classList.toggle("hidden", !method.includes("Net Banking"));
+}
+
+function completeOrder(e) {
+ e.preventDefault();
+ if (!cart.length) {
+  showMsg("Please add at least one NCERT book to your cart before proceeding to payment.");
+  document.getElementById("books").scrollIntoView({behavior:"smooth"});
+  return;
+ }
+ const name = document.getElementById("payName").value.trim();
+ const address = document.getElementById("payAddress").value.trim();
+ const email = document.getElementById("payEmail").value.trim();
+ const phone = document.getElementById("payPhone").value.trim();
+ const total = document.getElementById("payAmountInput").value;
+ const method = document.querySelector('input[name="payMethod"]:checked').value;
+ const txnId = "TXN" + Date.now().toString().slice(-8);
+ const orderId = "SS-" + Math.floor(100000 + Math.random() * 900000);
+
+ const itemsListHTML = cart.map(i => `<li>${escapeHTML(i.title)} (Qty: ${i.qty}) — <b>₹${i.price * i.qty}</b></li>`).join("");
+
+ document.getElementById("orderReceiptBody").innerHTML = `
+  <div class="notice" style="background:#dcfce7;border-color:#86efac;color:#14532d">
+   <b>✅ Online Payment Successful!</b><br>Order ID: <b>${orderId}</b> | Transaction ID: <b>${txnId}</b>
+  </div>
+  <p style="font-size:14px;line-height:1.6">
+   <b>Student / Buyer:</b> ${escapeHTML(name)}<br>
+   <b>Online Payment Mode:</b> ${escapeHTML(method)}<br>
+   <b>Amount Paid:</b> <span style="font-size:18px;font-weight:900;color:#15803d">₹${total} (PAID)</span><br>
+   <b>Delivery Address:</b> ${escapeHTML(address)}<br>
+   <b>Contact:</b> ${escapeHTML(phone)} | ${escapeHTML(email)}
+  </p>
+  <b style="font-size:13px">Purchased NCERT Books:</b>
+  <ul style="font-size:13px;padding-left:18px;line-height:1.6">${itemsListHTML}</ul>
+ `;
+
+ cart = [];
+ saveCart();
+ applyBookFilters();
+ e.target.reset();
+ togglePayDetails();
+ updateCartUI();
+ openModal("orderModal");
+}
+
+function startQuiz(n) {
+ const area = document.getElementById("quizArea");
+ area.classList.remove("hidden");
+ area.innerHTML = `
+  <h3>Class ${n} Sample Quiz</h3>
+  <p>1. Which habit helps students master NCERT concepts best?</p>
+  <label><input type="radio" name="q1" value="a" style="width:auto"> Regular reading and chapter revision</label><br>
+  <label><input type="radio" name="q1" value="b" style="width:auto"> Skipping textbook exercises</label><br>
+  <button class="btn" style="margin-top:10px" onclick="checkQuizAnswer()">Submit Answer</button>
+  <div id="quizFeedback" style="margin-top:10px;font-weight:700"></div>
+ `;
+ area.scrollIntoView({behavior:"smooth"});
+}
+
+function checkQuizAnswer() {
+ const selected = document.querySelector('input[name="q1"]:checked')?.value;
+ const fb = document.getElementById("quizFeedback");
+ if (!selected) {
+  fb.style.color = "#b45309";
+  fb.textContent = "Please select an option first.";
+  return;
+ }
+ if (selected === "a") {
+  fb.style.color = "#15803d";
+  fb.textContent = "✅ Correct! Regular reading and revision is the key to success.";
+ } else {
+  fb.style.color = "#b91c1c";
+  fb.textContent = "❌ Try again! Practicing NCERT exercises is essential.";
+ }
+}
+
+function saveSimple(e, msg) {
+ e.preventDefault();
+ showMsg(msg);
+ e.target.reset();
+ document.querySelectorAll(".modal.show").forEach(m => m.classList.remove("show"));
+}
+
+function addReview(e) {
+ e.preventDefault();
+ const name = document.getElementById("reviewName").value;
+ const text = document.getElementById("reviewText").value;
+ const rating = document.getElementById("reviewRating").value;
+ const div = document.createElement("div");
+ div.className = "list-item";
+ div.textContent = `${name} • ${"★".repeat(+rating)} — ${text}`;
+ document.getElementById("reviews").prepend(div);
+ e.target.reset();
+ showMsg("Thank you for your review!");
+}
+
+function escapeHTML(s) {
+ return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+async function sendAIMessage(e) {
+ e.preventDefault();
+ const input = document.getElementById("aiQuestion");
+ const send = document.getElementById("aiSend");
+ const messages = document.getElementById("aiMessages");
+ const question = input.value.trim();
+ if (!question) return;
+
+ const user = document.createElement("div");
+ user.className = "ai-message user";
+ user.textContent = question;
+ messages.appendChild(user);
+
+ input.value = "";
+ send.disabled = true;
+ send.textContent = "Thinking...";
+
+ const waiting = document.createElement("div");
+ waiting.className = "ai-message bot";
+ waiting.textContent = "SMARTSHIKSHA AI is thinking...";
+ messages.appendChild(waiting);
+ messages.scrollTop = messages.scrollHeight;
+
+ try {
+  const response = await fetch("ask-ai.php", {
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({question})
+  });
+  const data = await response.json();
+  waiting.textContent = data.answer || data.error || "Sorry, I could not get an answer. Please try again.";
+ } catch (err) {
+  waiting.textContent = `Great question about "${question}"! You can find the exact NCERT textbook for this topic in our Class 1–12 Bookstore section above.`;
+ } finally {
+  send.disabled = false;
+  send.textContent = "Ask AI";
+  messages.scrollTop = messages.scrollHeight;
+ }
+}
+
+// Initialize Platform
+document.getElementById("year").textContent = new Date().getFullYear();
+populateSelects();
+renderClasses();
+applyBookFilters();
+updateCartUI();
+</script>
+</body>
+</html>
